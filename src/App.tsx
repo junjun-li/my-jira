@@ -1,12 +1,10 @@
-import { useState } from 'react';
-import ProjectList from '@/ProjectList';
+import Login from '@/pages/Login';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="App">
-      <ProjectList />
+      {/*<ProjectList />*/}
+      <Login />
     </div>
   );
 }
