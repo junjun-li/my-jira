@@ -1,8 +1,8 @@
-import axios from 'axios';
 import type { AxiosInstance } from 'axios';
+import axios from 'axios';
 
 const instance: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://localhost:3001',
 });
 
 // 添加请求拦截器
