@@ -1,10 +1,17 @@
-import Login from '@/pages/Login';
+import React from 'react';
+import UnauthenticatedApp from '@/UnauthenticatedApp';
+import { useAuthContext } from '@/context/AuthContext';
+import ProjectList from '@/ProjectList';
+import './App.css';
 
 function App() {
+  const { user } = useAuthContext();
+
   return (
     <div className="App">
-      {/*<ProjectList />*/}
-      <Login />
+      {
+        user ? <ProjectList /> : <UnauthenticatedApp />
+      }
     </div>
   );
 }
