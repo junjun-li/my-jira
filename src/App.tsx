@@ -1,7 +1,7 @@
 import React from 'react';
 import UnauthenticatedApp from '@/UnauthenticatedApp';
 import { useAuthContext } from '@/context/AuthContext';
-import ProjectList from '@/ProjectList';
+import AuthenticatedApp from '@/AuthenticatedApp';
 import './App.css';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       {
-        user ? <ProjectList /> : <UnauthenticatedApp />
+        user ? <AuthenticatedApp /> : <UnauthenticatedApp />
       }
     </div>
   );
