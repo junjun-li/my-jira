@@ -3,13 +3,13 @@ import React from 'react';
 import type { Project, User } from '@/ProjectList/type';
 import { Table } from 'antd';
 import dayjs from 'dayjs';
+import { TableProps } from 'antd/lib/table/Table';
 
-interface ListProps {
-  list: Project[];
+interface ListProps extends TableProps<Project> {
   users: User[];
 }
 
-const List: FC<ListProps> = ({ list, users }) => {
+const List: FC<ListProps> = ({ users, ...props }) => {
   return (
     <Table
       rowKey="id"
@@ -48,7 +48,7 @@ const List: FC<ListProps> = ({ list, users }) => {
           },
         },
       ]}
-      dataSource={list}
+      {...props}
     />
   );
 };

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import List from '@/ProjectList/List';
 import SearchPanel from '@/ProjectList/SearchPanel';
-import { useDebounce, useMount } from '@/utils';
+import { useDebounce } from '@/utils';
 import { pickBy } from 'lodash';
 import useHttp from '@/hooks/useHttp';
+import useAsync from '@/hooks/useAsync';
 import styled from 'styled-components';
+import { Project } from '@/ProjectList/type';
 
 const ProjectList: React.FC = () => {
   const http = useHttp();
@@ -16,25 +18,30 @@ const ProjectList: React.FC = () => {
   const [list, setList] = useState([]);
 
   const debounceParam = useDebounce(param, 1000);
-  useEffect(() => {
-    (async function () {
-      // const { data } = await getProjects(pickBy(debounceParam));
-      // setList(data);
-      http('/projects', { data: pickBy(debounceParam) }).then(setList);
-    })();
-  }, [debounceParam]);
+  const {
+    isLoading,
+    data,
+    isError,
+    run: getData,
+  } = useAsync<Project[]>(() => http('/projects', { data: pickBy(debounceParam) }));
 
-  useMount(async () => {
-    // const { data } = await getUsers();
-    // setUsers(data);
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
     http('/users').then(setUsers);
-  });
+  }, []);
 
   return (
     <Container>
       <h1>项目列表</h1>
       <SearchPanel users={users} param={param} setParam={setParam} />
-      <List users={users} list={list} />
+      <List
+        users={users}
+        dataSource={data || []}
+        loading={isLoading}
+      />
     </Container>
   );
 };
