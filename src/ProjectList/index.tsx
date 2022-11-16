@@ -7,8 +7,11 @@ import useHttp from '@/hooks/useHttp';
 import useAsync from '@/hooks/useAsync';
 import styled from 'styled-components';
 import { Project } from '@/ProjectList/type';
+import Test from '@/ProjectList/Test';
+import useTitle from '@/hooks/useTitle';
 
 const ProjectList: React.FC = () => {
+  useTitle('吃饭睡觉打豆豆', true);
   const http = useHttp();
   const [users, setUsers] = useState([]);
   const [param, setParam] = useState({
@@ -35,6 +38,7 @@ const ProjectList: React.FC = () => {
 
   return (
     <Container>
+      <Test />
       <h1>项目列表</h1>
       <SearchPanel users={users} param={param} setParam={setParam} />
       <List

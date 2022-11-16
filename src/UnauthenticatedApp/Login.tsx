@@ -11,7 +11,7 @@ const Login = () => {
   };
 
   return (
-    <Form onFinish={handleSubmit}>
+    <Form onFinish={handleSubmit} initialValues={{ username: 'junjun', password: '123456' }}>
       <Form.Item
         name={'username'}
         rules={[{ required: true, message: '请输入用户名' }]}
