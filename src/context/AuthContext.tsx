@@ -1,7 +1,7 @@
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import * as auth from '@/authProvider';
 import { getToken } from '@/authProvider';
-import { User } from '@/ProjectList/type';
+import { User } from '@/pages/ProjectList/type';
 // import useHttp from '@/hooks/useHttp';
 import http from '@/utils/http';
 

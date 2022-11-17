@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import List from '@/ProjectList/List';
-import SearchPanel from '@/ProjectList/SearchPanel';
+import List from '@/pages/ProjectList/List';
+import SearchPanel from '@/pages/ProjectList/SearchPanel';
 import { useDebounce } from '@/utils';
 import { pickBy } from 'lodash';
 import useHttp from '@/hooks/useHttp';
 import useAsync from '@/hooks/useAsync';
 import styled from 'styled-components';
-import { Project } from '@/ProjectList/type';
-import Test from '@/ProjectList/Test';
+import { Project } from '@/pages/ProjectList/type';
 import useTitle from '@/hooks/useTitle';
 
 const ProjectList: React.FC = () => {
@@ -38,7 +37,6 @@ const ProjectList: React.FC = () => {
 
   return (
     <Container>
-      <Test />
       <h1>项目列表</h1>
       <SearchPanel users={users} param={param} setParam={setParam} />
       <List

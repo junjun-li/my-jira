@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React from 'react';
-import type { User } from '@/ProjectList/type';
+import type { User } from '@/pages/ProjectList/type';
 import { Form, Input, Select } from 'antd';
 
 interface SearchPanelProps {

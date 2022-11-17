@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import ProjectList from '@/ProjectList';
+import ProjectList from '@/pages/ProjectList';
+import Project from '@/pages/Project';
 import { useAuthContext } from '@/context/AuthContext';
 import { Row } from '@/components/lib';
-import { Dropdown, Menu } from 'antd';
+import { Dropdown } from 'antd';
 import { ReactComponent as SoftwareLogo } from '@/assets/software-logo.svg';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Navigate } from 'react-router';
 
 /**
  * grid 和 flex 各自的应用场景
@@ -19,33 +22,47 @@ import { ReactComponent as SoftwareLogo } from '@/assets/software-logo.svg';
  */
 
 const AuthenticatedApp = () => {
-  const { logout, user } = useAuthContext();
   return (
     <Container>
-      <Header between={true}>
-        <HeaderLeft gap={true}>
-          <SoftwareLogo width="18rem" color="rgb(38, 132, 255)" />
-          <h2>项目</h2>
-          <h2>用户</h2>
-        </HeaderLeft>
-        <HeaderRight>
-          <Dropdown
-            overlay={
-              <Menu>
-                <Menu.Item key="logout">
-                  <a onClick={logout}>登出</a>
-                </Menu.Item>
-              </Menu>
-            }
-          >
-            <a onClick={(e) => e.preventDefault()}>Hi, {user?.name}</a>
-          </Dropdown>
-        </HeaderRight>
-      </Header>
+      <PageHeader />
       <Main>
-        <ProjectList />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Navigate to="/projects" />} />
+            <Route path="/projects" element={<ProjectList />} />
+            <Route path="/projects/:projectId" element={<Project />} />
+          </Routes>
+        </BrowserRouter>
       </Main>
     </Container>
+  );
+};
+
+const PageHeader = () => {
+  const { logout, user } = useAuthContext();
+
+  return (
+    <Header between={true}>
+      <HeaderLeft gap={true}>
+        <SoftwareLogo width="18rem" color="rgb(38, 132, 255)" />
+        <h2>项目</h2>
+        <h2>用户</h2>
+      </HeaderLeft>
+      <HeaderRight>
+        <Dropdown
+          menu={{
+            items: [
+              {
+                key: 0,
+                label: (<a onClick={logout}>登出</a>),
+              },
+            ],
+          }}
+        >
+          <a onClick={(e) => e.preventDefault()}>Hi, {user?.name}</a>
+        </Dropdown>
+      </HeaderRight>
+    </Header>
   );
 };
 

@@ -1,9 +1,10 @@
 import type { FC } from 'react';
 import React from 'react';
-import type { Project, User } from '@/ProjectList/type';
+import type { Project, User } from '@/pages/ProjectList/type';
 import { Table } from 'antd';
 import dayjs from 'dayjs';
 import { TableProps } from 'antd/lib/table/Table';
+import { Link } from 'react-router-dom';
 
 interface ListProps extends TableProps<Project> {
   users: User[];
@@ -19,6 +20,9 @@ const List: FC<ListProps> = ({ users, ...props }) => {
           title: '名称',
           dataIndex: 'name',
           sorter: (a, b) => a.name.localeCompare(b.name),
+          render(value, project) {
+            return <Link to={String(project.id)}>{project.name}</Link>;
+          },
         },
         {
           title: '部门',
