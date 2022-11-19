@@ -2,12 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import ProjectList from '@/pages/ProjectList';
 import Project from '@/pages/Project';
+import KanBan from '@/pages/KanBan';
+import Epic from '@/pages/Epic';
 import { useAuthContext } from '@/context/AuthContext';
 import { Row } from '@/components/lib';
 import { Dropdown } from 'antd';
 import { ReactComponent as SoftwareLogo } from '@/assets/software-logo.svg';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Navigate } from 'react-router';
+import type { RouteObject } from 'react-router-dom';
+import { Navigate, useRoutes } from 'react-router-dom';
 
 /**
  * grid 和 flex 各自的应用场景
@@ -22,17 +24,38 @@ import { Navigate } from 'react-router';
  */
 
 const AuthenticatedApp = () => {
+  const routes: RouteObject[] = [
+    {
+      path: '/',
+      element: <Navigate to="/projects" />,
+    },
+    {
+      path: '/projects',
+      element: <ProjectList />,
+    },
+    {
+      path: '/projects/:projectId',
+      element: <Project />,
+      children: [
+        {
+          path: 'kanban',
+          element: <KanBan />,
+        },
+        {
+          path: 'epic',
+          element: <Epic />,
+        },
+        // TODO: 访问未知路由跳到默认路由
+      ],
+    },
+  ];
+  const element = useRoutes(routes);
+
   return (
     <Container>
       <PageHeader />
       <Main>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Navigate to="/projects" />} />
-            <Route path="/projects" element={<ProjectList />} />
-            <Route path="/projects/:projectId" element={<Project />} />
-          </Routes>
-        </BrowserRouter>
+        {element}
       </Main>
     </Container>
   );

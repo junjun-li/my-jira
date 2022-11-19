@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
-import Epic from '@/pages/Epic';
-import KanBan from '@/pages/KanBan';
+import { Link, Outlet } from 'react-router-dom';
 
 const Project = () => {
   return (
@@ -9,13 +7,7 @@ const Project = () => {
       <h1>ProjectScreen</h1>
       <Link to="kanban">看板</Link>
       <Link to="epic">任务组</Link>
-      <Routes>
-        {/*projects/:projectId/kanban*/}
-        <Route path="/kanban" element={<Epic />} />
-        {/*projects/:projectId/epic*/}
-        <Route path="/epic" element={<KanBan />} />
-        {/*<Route path="*" element={<Navigate to={window.location.pathname + '/kanban'} />} />*/}
-      </Routes>
+      <Outlet />
     </div>
   );
 };
