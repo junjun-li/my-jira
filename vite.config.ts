@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import svgr from 'vite-plugin-svgr';
+import requireTransform from 'vite-plugin-require-transform';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,7 +10,13 @@ export default defineConfig({
     open: true,
     port: 4455,
   },
-  plugins: [svgr(), react()],
+  plugins: [
+    requireTransform({
+      fileRegex: /wdyr.js/,
+    }),
+    svgr(),
+    react(),
+  ],
   resolve: {
     alias: [
       {

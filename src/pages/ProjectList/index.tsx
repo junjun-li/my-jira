@@ -8,17 +8,18 @@ import useAsync from '@/hooks/useAsync';
 import styled from 'styled-components';
 import { Project } from '@/pages/ProjectList/type';
 import useTitle from '@/hooks/useTitle';
+import useUrlQueryParams from '@/hooks/useUrlQueryParams';
 
 const ProjectList: React.FC = () => {
   useTitle('吃饭睡觉打豆豆', true);
   const http = useHttp();
   const [users, setUsers] = useState([]);
-  const [param, setParam] = useState({
+  const [, setParam] = useState({
     name: '',
     personId: '',
   });
-  const [list, setList] = useState([]);
-
+  const [param] = useUrlQueryParams(['name', 'personId']);
+  console.log(param);
   const debounceParam = useDebounce(param, 1000);
   const {
     isLoading,
@@ -47,6 +48,10 @@ const ProjectList: React.FC = () => {
     </Container>
   );
 };
+
+// @ts-ignore
+// 注入,开启插件判断为啥会渲染
+ProjectList.whyDidYouRender = true;
 
 const Container = styled.div`
   padding: 3.2rem;
