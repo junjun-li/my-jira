@@ -14,13 +14,15 @@ const ProjectList: React.FC = () => {
   useTitle('吃饭睡觉打豆豆', true);
   const http = useHttp();
   const [users, setUsers] = useState([]);
-  const [, setParam] = useState({
-    name: '',
-    personId: '',
-  });
-  const [param] = useUrlQueryParams(['name', 'personId']);
-  console.log(param);
-  const debounceParam = useDebounce(param, 1000);
+  // const [, setParam] = useState({
+  //   name: '',
+  //   personId: '',
+  // });
+  const [param, setParam] = useUrlQueryParams(['name', 'personId']);
+  // setParam({ name: '张三' });
+
+  const debounceParam = useDebounce(param, 200);
+
   const {
     isLoading,
     data,
@@ -31,6 +33,10 @@ const ProjectList: React.FC = () => {
   useEffect(() => {
     getData();
   }, []);
+
+  useEffect(() => {
+    getData();
+  }, [debounceParam]);
 
   useEffect(() => {
     http('/users').then(setUsers);

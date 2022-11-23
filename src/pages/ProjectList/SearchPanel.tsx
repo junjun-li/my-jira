@@ -39,7 +39,7 @@ const SearchPanel: FC<SearchPanelProps> = ({ users, param, setParam }) => {
         >
           <Select.Option value={''}>负责人</Select.Option>
           {users.map((user) => (
-            <Select.Option key={user.id} value={user.id}>
+            <Select.Option key={user.id} value={`${user.id}`}>
               {user.name}
             </Select.Option>
           ))}
