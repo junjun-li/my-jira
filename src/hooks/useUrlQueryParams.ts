@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { useMemo } from 'react';
 import { URLSearchParamsInit } from 'react-router-dom/dist/dom';
-import { cloneDeep } from 'lodash';
+import { cleanObject } from '@/utils';
 // 返回页面url中,指定键的参数值
 const useUrlQueryParams = <T extends string>(keys: T[]) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -23,7 +23,7 @@ const useUrlQueryParams = <T extends string>(keys: T[]) => {
       // iterator: 迭代器
       // 部署了iterator的 [],{},Map 有个特点,就是可以使用for..of
       // console.log('prevParam', Object.fromEntries(prevParam));
-      const o = cloneDeep({
+      const o = cleanObject({
         ...Object.fromEntries(searchParams),
         ...param,
       }) as URLSearchParamsInit;
@@ -38,3 +38,11 @@ export default useUrlQueryParams;
 
 const arr1 = [1, '2', {}, []];
 const arr2 = [1, '2', {}, []] as const;
+
+interface IProps {
+  name: string;
+  age: number;
+  phone: number;
+}
+
+type TUser = Pick<IProps, 'name' | 'age'>;

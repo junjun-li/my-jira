@@ -9,17 +9,18 @@ import styled from 'styled-components';
 import { Project } from '@/pages/ProjectList/type';
 import useTitle from '@/hooks/useTitle';
 import useUrlQueryParams from '@/hooks/useUrlQueryParams';
+import { useProjectSearchParams } from '@/pages/ProjectList/utils';
+import { useUsers } from '@/hooks/useData';
 
 const ProjectList: React.FC = () => {
   useTitle('吃饭睡觉打豆豆', true);
   const http = useHttp();
-  const [users, setUsers] = useState([]);
   // const [, setParam] = useState({
   //   name: '',
   //   personId: '',
   // });
-  const [param, setParam] = useUrlQueryParams(['name', 'personId']);
-  // setParam({ name: '张三' });
+  const [param, setParam] = useProjectSearchParams();
+  // setParam({ name1: '张三' });
 
   const debounceParam = useDebounce(param, 200);
 
@@ -30,6 +31,8 @@ const ProjectList: React.FC = () => {
     run: getData,
   } = useAsync<Project[]>(() => http('/projects', { data: pickBy(debounceParam) }));
 
+  const users = useUsers();
+
   useEffect(() => {
     getData();
   }, []);
@@ -37,10 +40,6 @@ const ProjectList: React.FC = () => {
   useEffect(() => {
     getData();
   }, [debounceParam]);
-
-  useEffect(() => {
-    http('/users').then(setUsers);
-  }, []);
 
   return (
     <Container>

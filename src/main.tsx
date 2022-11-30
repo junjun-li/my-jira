@@ -4,8 +4,7 @@ import ReactDOM from 'react-dom/client';
 import App from '@/App';
 import { DevTools, loadServer } from 'jira-dev-tool';
 import Context from '@/context';
-// import 'antd/dist/antd.css';
-import 'antd/dist/antd.less';
+import 'antd/dist/antd.css';
 import { BrowserRouter } from 'react-router-dom';
 
 loadServer(() =>
